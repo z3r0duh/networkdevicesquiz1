@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Networking Devices Quiz</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+        .quiz-container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .question {
+            margin-bottom: 15px;
+        }
+        .submit-btn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .submit-btn:hover {
+            background-color: #45a049;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 18px;
+        }
+        .wrong {
+            color: red;
+        }
+        .correct {
+            color: green;
+        }
+    </style>
+</head>
+<body>
+
+<div class="quiz-container">
+    <h1>Networking Devices Quiz</h1>
+    
+    <form id="quizForm">
+        <div class="question">
+            <p>1. What is the primary function of a router?</p>
+            <input type="radio" name="q1" value="wrong"> Forward data based on MAC addresses<br>
+            <input type="radio" name="q1" value="correct"> Route data between different IP subnets<br>
+            <input type="radio" name="q1" value="wrong"> Manage wireless connections<br>
+        </div>
+
+        <div class="question">
+            <p>2. A Layer 3 switch combines the functions of which two devices?</p>
+            <input type="radio" name="q2" value="wrong"> Firewall and Router<br>
+            <input type="radio" name="q2" value="correct"> Switch and Router<br>
+            <input type="radio" name="q2" value="wrong"> Access Point and Switch<br>
+        </div>
+
+        <div class="question">
+            <p>3. What does a Next-Generation Firewall (NGFW) do?</p>
+            <input type="radio" name="q3" value="correct"> Identifies applications and manages access<br>
+            <input type="radio" name="q3" value="wrong"> Routes traffic between IP subnets<br>
+            <input type="radio" name="q3" value="wrong"> Offloads SSL traffic from servers<br>
+        </div>
+
+        <div class="question">
+            <p>4. What is the role of an Intrusion Prevention System (IPS)?</p>
+            <input type="radio" name="q4" value="correct"> Detect and block network attacks<br>
+            <input type="radio" name="q4" value="wrong"> Encrypt traffic between firewalls<br>
+            <input type="radio" name="q4" value="wrong"> Manage wireless roaming between access points<br>
+        </div>
+
+        <div class="question">
+            <p>5. What device is responsible for distributing traffic across multiple servers?</p>
+            <input type="radio" name="q5" value="wrong"> Firewall<br>
+            <input type="radio" name="q5" value="correct"> Load Balancer<br>
+            <input type="radio" name="q5" value="wrong"> Proxy Server<br>
+        </div>
+
+        <button type="button" class="submit-btn" onclick="submitQuiz()">Submit</button>
+    </form>
+
+    <div class="result" id="result"></div>
+</div>
+
+<script>
+    function submitQuiz() {
+        var form = document.getElementById('quizForm');
+        var result = document.getElementById('result');
+        var score = 0;
+        var feedback = '';
+        
+        var answers = {
+            q1: 'correct',
+            q2: 'correct',
+            q3: 'correct',
+            q4: 'correct',
+            q5: 'correct'
+        };
+
+        for (var i = 1; i <= 5; i++) {
+            var question = form['q' + i];
+            var selected = document.querySelector('input[name="q' + i + '"]:checked');
+
+            if (selected) {
+                if (selected.value === answers['q' + i]) {
+                    score++;
+                    feedback += '<p class="correct">Question ' + i + ': Correct!</p>';
+                } else {
+                    feedback += '<p class="wrong">Question ' + i + ': Wrong! The correct answer is "' + getCorrectAnswer(i) + '"</p>';
+                }
+            } else {
+                feedback += '<p class="wrong">Question ' + i + ': You did not answer this question.</p>';
+            }
+        }
+
+        result.innerHTML = 'Your score is: ' + score + '/5<br>' + feedback;
+    }
+
+    function getCorrectAnswer(questionNumber) {
+        var correctAnswers = {
+            1: 'Route data between different IP subnets',
+            2: 'Switch and Router',
+            3: 'Identifies applications and manages access',
+            4: 'Detect and block network attacks',
+            5: 'Load Balancer'
+        };
+        return correctAnswers[questionNumber];
+    }
+</script>
+
+</body>
+</html>
